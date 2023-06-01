@@ -26,19 +26,11 @@ class MainActivity : AppCompatActivity() {
         for ((index, button) in numberButtons.withIndex()) {
             button.setOnClickListener {
                 currentNumber += index.toString()
-                binding.textView.text = currentNumber
+                result = currentNumber.toDouble()
+                binding.textView.text = result.toString()
             }
         }
 
-        // Обработчик событий для кнопки с точкой
-        binding.buttonDot.setOnClickListener {
-            if (!currentNumber.contains(".")) {
-                currentNumber += "."
-                binding.textView.text = currentNumber
-            }
-        }
-
-        // Обработчики событий для кнопок с операциями
         val operationButtons = mapOf(
             binding.buttonPlus to "+",
             binding.buttonMinus to "-",
@@ -50,21 +42,16 @@ class MainActivity : AppCompatActivity() {
             button.setOnClickListener {
                 performOperation()
                 currentOperation = operation
+                binding.textView.text = "${result.toString()}$currentOperation"
             }
         }
+
 
         // Обработчик событий для кнопки равно
         binding.buttonEquals.setOnClickListener {
             performOperation()
             currentOperation = ""
-        }
-
-        // Обработчик событий для кнопки AC
-        binding.buttonAC.setOnClickListener {
-            currentNumber = ""
-            currentOperation = ""
-            result = 0.0
-            binding.textView.text = ""
+            binding.textView.text = result.toString()
         }
 
         // Обработчик событий для кнопки +/- (меняет знак текущего числа)
@@ -82,7 +69,16 @@ class MainActivity : AppCompatActivity() {
             currentNumber = (currentNumber.toDouble() / 100).toString()
             binding.textView.text = currentNumber
         }
+
+        binding.buttonAC.setOnClickListener {
+            currentNumber = ""
+            currentOperation = ""
+            result = 0.0
+            binding.textView.text = ""
+        }
     }
+
+
 
     private fun performOperation() {
         val number = currentNumber.toDoubleOrNull() ?: return
@@ -99,6 +95,5 @@ class MainActivity : AppCompatActivity() {
             else -> result = number
         }
         currentNumber = ""
-        binding.textView.text = result.toString()
     }
 }
