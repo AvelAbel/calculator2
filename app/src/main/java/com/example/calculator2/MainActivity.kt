@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.calculator2.databinding.ActivityMainBinding
 import androidx.databinding.DataBindingUtil
+import org.mariuszgromada.math.mxparser.Expression
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private var currentNumber = ""
-    private var currentOperation = ""
-    private var result = 0.0
+    private var currentExpression = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,12 +25,12 @@ class MainActivity : AppCompatActivity() {
 
         for ((index, button) in numberButtons.withIndex()) {
             button.setOnClickListener {
-                currentNumber += index.toString()
-                result = currentNumber.toDouble()
-                binding.textView.text = result.toString()
+                currentExpression += index.toString()
+                binding.textView.text = currentExpression
             }
         }
 
+        // Обработчики событий для кнопок с операциями
         val operationButtons = mapOf(
             binding.buttonPlus to "+",
             binding.buttonMinus to "-",
@@ -40,60 +40,54 @@ class MainActivity : AppCompatActivity() {
 
         for ((button, operation) in operationButtons) {
             button.setOnClickListener {
-                performOperation()
-                currentOperation = operation
-                binding.textView.text = "${result.toString()}$currentOperation"
+                currentExpression += operation
+                binding.textView.text = currentExpression
             }
         }
 
+        binding.buttonDot.setOnClickListener {
+            // Проверяем, содержит ли текущее число уже точку
+            if (!currentExpression.contains(".")) {
+                currentExpression += "."
+                binding.textView.text = currentExpression
+            }
+        }
 
         // Обработчик событий для кнопки равно
         binding.buttonEquals.setOnClickListener {
-            performOperation()
-            currentOperation = ""
-            binding.textView.text = result.toString()
-        }
-
-        // Обработчик событий для кнопки +/- (меняет знак текущего числа)
-        binding.buttonPlusMinus.setOnClickListener {
-            currentNumber = if (currentNumber.startsWith("-")) {
-                currentNumber.substring(1)
+            val expression = Expression(currentExpression)
+            val result = expression.calculate()
+            if (result % 1 == 0.0) {
+                // Если результат является целым числом, преобразовать его в Int
+                currentExpression = result.toInt().toString()
             } else {
-                "-$currentNumber"
+                currentExpression = result.toString()
             }
-            binding.textView.text = currentNumber
+            binding.textView.text = currentExpression
         }
 
-        // Обработчик событий для кнопки % (делит текущее число на 100)
-        binding.buttonPercent.setOnClickListener {
-            currentNumber = (currentNumber.toDouble() / 100).toString()
-            binding.textView.text = currentNumber
-        }
 
+        // Обработчик событий для кнопки AC
         binding.buttonAC.setOnClickListener {
-            currentNumber = ""
-            currentOperation = ""
-            result = 0.0
-            binding.textView.text = ""
+            currentExpression = ""
+            binding.textView.text = currentExpression
+        }
+
+        // Обработчик событий для кнопки +/-
+        binding.buttonPlusMinus.setOnClickListener {
+            val expression = Expression(currentExpression)
+            val result = -expression.calculate()
+            currentExpression = result.toString()
+            binding.textView.text = currentExpression
+        }
+
+        // Обработчик событий для кнопки %
+        binding.buttonPercent.setOnClickListener {
+            val expression = Expression(currentExpression)
+            val result = expression.calculate() / 100
+            currentExpression = result.toString()
+            binding.textView.text = currentExpression
         }
     }
 
-
-
-    private fun performOperation() {
-        val number = currentNumber.toDoubleOrNull() ?: return
-        when (currentOperation) {
-            "+" -> result += number
-            "-" -> result -= number
-            "*" -> result *= number
-            "/" -> if (number != 0.0) {
-                result /= number
-            } else {
-                Toast.makeText(this, "Cannot divide by zero", Toast.LENGTH_SHORT).show()
-                return
-            }
-            else -> result = number
-        }
-        currentNumber = ""
-    }
 }
