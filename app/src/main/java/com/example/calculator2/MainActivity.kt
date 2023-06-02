@@ -2,11 +2,9 @@ package com.example.calculator2
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.example.calculator2.databinding.ActivityMainBinding
-import androidx.databinding.DataBindingUtil
 import org.mariuszgromada.math.mxparser.Expression
-
+import androidx.databinding.DataBindingUtil
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -14,7 +12,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Обработчики событий для кнопок с числами
         val numberButtons = listOf(
@@ -66,9 +65,8 @@ class MainActivity : AppCompatActivity() {
             binding.textView.text = currentExpression
         }
 
-
         // Обработчик событий для кнопки AC
-        binding.buttonAC.setOnClickListener {
+        binding.imageViewAC.setOnClickListener {
             currentExpression = ""
             binding.textView.text = currentExpression
         }
@@ -89,5 +87,4 @@ class MainActivity : AppCompatActivity() {
             binding.textView.text = currentExpression
         }
     }
-
 }

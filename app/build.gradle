@@ -11,6 +11,10 @@ android {
         enabled = true
     }
 
+    viewBinding {
+        enabled = true
+    }
+
     defaultConfig {
         applicationId "com.example.calculator2"
         minSdk 24
