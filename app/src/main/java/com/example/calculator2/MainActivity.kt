@@ -4,6 +4,7 @@ import android.media.SoundPool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
+import android.widget.ImageView
 import com.example.calculator2.databinding.ActivityMainBinding
 import org.mariuszgromada.math.mxparser.Expression
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var currentExpression = ""
+    private lateinit var soundPool: SoundPool
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +20,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+
+        soundPool = SoundPool.Builder().setMaxStreams(2).build()  // Инициализируйте soundPool здесь
+
+        // Здесь используйте soundPool
+        val sound1 = soundPool.load(this, R.raw.pressed, 1)
+        val sound2 = soundPool.load(this, R.raw.unpressed, 1)
+
 
         // Обработчики событий для кнопок с числами
         val numberButtons = listOf(
@@ -69,55 +78,32 @@ class MainActivity : AppCompatActivity() {
             binding.textView.text = currentExpression
         }
 
-        val soundPool = SoundPool.Builder().setMaxStreams(2).build()
-        val sound1 = soundPool.load(this, R.raw.pressed, 1)
-        val sound2 = soundPool.load(this, R.raw.unpressed, 1)
 
-        binding.imageViewAC.setOnTouchListener { v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    // Воспроизводим звук 1
-                    soundPool.play(sound1, 1F, 1F, 0, 0, 1F)
-                    // Меняем картинку на нажатую
-                    binding.imageViewAC.setImageResource(R.drawable.pressed_clear)
-                    v.performClick()
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    // Воспроизводим звук 2
-                    soundPool.play(sound2, 1F, 1F, 0, 0, 1F)
-                    // Возвращаем исходную картинку
-                    binding.imageViewAC.setImageResource(R.drawable.unpressed_clear)
-                    true
-                }
-                else -> false
+        setButtonTouchListener(
+            binding.imageViewAC,
+            sound1,
+            sound2,
+            R.drawable.pressed_clear,
+            R.drawable.unpressed_clear,
+            {
+                // Очищаем поле ввода
+                currentExpression = ""
+                binding.textView.text = currentExpression
             }
-        }
+        )
 
-
-        binding.button1.setOnTouchListener { v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    // Воспроизводим звук 1
-                    soundPool.play(sound1, 1F, 1F, 0, 0, 1F)
-                    // Меняем картинку на нажатую
-                    binding.button1.setImageResource(R.drawable.pressed1)
-                    // Добавляем число 1 в выражение
-                    currentExpression += "1"
-                    binding.textView.text = currentExpression
-                    v.performClick()
-                    true
-                }
-                MotionEvent.ACTION_UP -> {
-                    // Воспроизводим звук 2
-                    soundPool.play(sound2, 1F, 1F, 0, 0, 1F)
-                    // Возвращаем исходную картинку
-                    binding.button1.setImageResource(R.drawable.unpressed1)
-                    true
-                }
-                else -> false
+        setButtonTouchListener(
+            binding.button1,
+            sound1,
+            sound2,
+            R.drawable.pressed1,
+            R.drawable.unpressed1,
+            {
+                // Добавляем число 1 в выражение
+                currentExpression += "1"
+                binding.textView.text = currentExpression
             }
-        }
+        )
 
 
         // Обработчик событий для кнопки +/-
@@ -136,4 +122,37 @@ class MainActivity : AppCompatActivity() {
             binding.textView.text = currentExpression
         }
     }
+
+    private fun setButtonTouchListener(
+        button: ImageView,
+        soundDown: Int,
+        soundUp: Int,
+        imageDown: Int,
+        imageUp: Int,
+        action: () -> Unit
+    ) {
+        button.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    // Воспроизводим звук нажатия
+                    soundPool.play(soundDown, 1F, 1F, 0, 0, 1F)
+                    // Меняем картинку на нажатую
+                    button.setImageResource(imageDown)
+                    // Выполняем действие
+                    action()
+                    v.performClick()
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    // Воспроизводим звук отпускания
+                    soundPool.play(soundUp, 1F, 1F, 0, 0, 1F)
+                    // Возвращаем исходную картинку
+                    button.setImageResource(imageUp)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
 }
