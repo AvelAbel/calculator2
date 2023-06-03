@@ -17,9 +17,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         // Обработчики событий для кнопок с числами
         val numberButtons = listOf(
-            binding.button0, binding.button1, binding.button2, binding.button3,
+            binding.button0, binding.button2, binding.button3,
             binding.button4, binding.button5, binding.button6, binding.button7,
             binding.button8, binding.button9
         )
@@ -77,11 +79,31 @@ class MainActivity : AppCompatActivity() {
                     // Воспроизводим звук 1
                     soundPool.play(sound1, 1F, 1F, 0, 0, 1F)
                     // Меняем картинку на нажатую
-                    binding.imageViewAC.setImageResource(R.drawable.buttonpushed)
+                    binding.imageViewAC.setImageResource(R.drawable.pressed_clear)
                     v.performClick()
                     true
-                    // Сбрасываем выражение
-                    currentExpression = ""
+                }
+                MotionEvent.ACTION_UP -> {
+                    // Воспроизводим звук 2
+                    soundPool.play(sound2, 1F, 1F, 0, 0, 1F)
+                    // Возвращаем исходную картинку
+                    binding.imageViewAC.setImageResource(R.drawable.unpressed_clear)
+                    true
+                }
+                else -> false
+            }
+        }
+
+
+        binding.button1.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    // Воспроизводим звук 1
+                    soundPool.play(sound1, 1F, 1F, 0, 0, 1F)
+                    // Меняем картинку на нажатую
+                    binding.button1.setImageResource(R.drawable.pressed1)
+                    // Добавляем число 1 в выражение
+                    currentExpression += "1"
                     binding.textView.text = currentExpression
                     v.performClick()
                     true
@@ -90,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                     // Воспроизводим звук 2
                     soundPool.play(sound2, 1F, 1F, 0, 0, 1F)
                     // Возвращаем исходную картинку
-                    binding.imageViewAC.setImageResource(R.drawable.button7)
+                    binding.button1.setImageResource(R.drawable.unpressed1)
                     true
                 }
                 else -> false

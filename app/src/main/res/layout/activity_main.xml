@@ -1,5 +1,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,195 +14,272 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <ImageView
         android:id="@+id/imageViewAC"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/button7"
+        android:src="@drawable/unpressed_clear"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintBottom_toTopOf="@+id/barrier1" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonDivide"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="/"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed_divide"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintBottom_toTopOf="@+id/barrier1" />
 
-    <Button
+    <ImageView
         android:id="@+id/button1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="1"
-        app:layout_constraintStart_toStartOf="parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed1"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/barrier4"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/barrier3"
-        app:layout_constraintBottom_toTopOf="@+id/barrier4" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barrier3" />
 
-    <Button
+    <ImageView
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="2"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed2"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/barrier3"
         app:layout_constraintBottom_toTopOf="@+id/barrier4" />
 
-    <Button
+    <ImageView
         android:id="@+id/button3"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="3"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed3"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/barrier3"
         app:layout_constraintBottom_toTopOf="@+id/barrier4" />
 
-    <Button
+    <ImageView
         android:id="@+id/button4"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="4"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed4"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toBottomOf="@+id/barrier2"
         app:layout_constraintBottom_toTopOf="@+id/barrier3" />
 
-    <Button
+    <ImageView
         android:id="@+id/button5"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="5"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed5"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/barrier2"
         app:layout_constraintBottom_toTopOf="@+id/barrier3" />
 
-    <Button
+    <ImageView
         android:id="@+id/button6"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="6"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed6"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/barrier2"
         app:layout_constraintBottom_toTopOf="@+id/barrier3" />
 
-    <Button
+    <ImageView
         android:id="@+id/button7"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="7"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed7"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toBottomOf="@+id/barrier1"
         app:layout_constraintBottom_toTopOf="@+id/barrier2" />
 
-    <Button
+    <ImageView
         android:id="@+id/button8"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="8"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed8"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/barrier1"
         app:layout_constraintBottom_toTopOf="@+id/barrier2" />
 
-    <Button
+    <ImageView
         android:id="@+id/button9"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="9"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed9"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/barrier1"
         app:layout_constraintBottom_toTopOf="@+id/barrier2" />
 
-    <Button
+    <ImageView
         android:id="@+id/button0"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="0"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed0"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toBottomOf="@+id/barrier4" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonPercent"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="%"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed_percent"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintBottom_toTopOf="@+id/barrier1" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonPlus"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="+"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed_plus"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barrier3"
         app:layout_constraintBottom_toTopOf="@+id/barrier4" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonMinus"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="-"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed_minus"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barrier2"
         app:layout_constraintBottom_toTopOf="@+id/barrier3" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonMultiply"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="*"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed_multiply"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barrier1"
         app:layout_constraintBottom_toTopOf="@+id/barrier2" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonDot"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="."
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed_dot"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toBottomOf="@+id/barrier4" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonEquals"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="="
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed_equall"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barrier4"
         app:layout_constraintBottom_toTopOf="@+id/barrier5" />
 
-    <Button
+    <ImageView
         android:id="@+id/buttonPlusMinus"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="+/-"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/unpressed_minusplus"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@+id/guideline1"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintBottom_toTopOf="@+id/barrier1" />
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
