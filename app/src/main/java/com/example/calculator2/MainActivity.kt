@@ -1,7 +1,9 @@
 package com.example.calculator2
 
+import android.media.SoundPool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import com.example.calculator2.databinding.ActivityMainBinding
 import org.mariuszgromada.math.mxparser.Expression
 import androidx.databinding.DataBindingUtil
@@ -65,11 +67,36 @@ class MainActivity : AppCompatActivity() {
             binding.textView.text = currentExpression
         }
 
-        // Обработчик событий для кнопки AC
-        binding.imageViewAC.setOnClickListener {
-            currentExpression = ""
-            binding.textView.text = currentExpression
+        val soundPool = SoundPool.Builder().setMaxStreams(2).build()
+        val sound1 = soundPool.load(this, R.raw.pressed, 1)
+        val sound2 = soundPool.load(this, R.raw.unpressed, 1)
+
+        binding.imageViewAC.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    // Воспроизводим звук 1
+                    soundPool.play(sound1, 1F, 1F, 0, 0, 1F)
+                    // Меняем картинку на нажатую
+                    binding.imageViewAC.setImageResource(R.drawable.buttonpushed)
+                    v.performClick()
+                    true
+                    // Сбрасываем выражение
+                    currentExpression = ""
+                    binding.textView.text = currentExpression
+                    v.performClick()
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    // Воспроизводим звук 2
+                    soundPool.play(sound2, 1F, 1F, 0, 0, 1F)
+                    // Возвращаем исходную картинку
+                    binding.imageViewAC.setImageResource(R.drawable.button7)
+                    true
+                }
+                else -> false
+            }
         }
+
 
         // Обработчик событий для кнопки +/-
         binding.buttonPlusMinus.setOnClickListener {
