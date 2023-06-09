@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         supportActionBar?.hide()
 
         soundPool = SoundPool.Builder().setMaxStreams(2).build()  // Инициализируйте soundPool здесь
@@ -294,6 +296,10 @@ class MainActivity : AppCompatActivity() {
                     button.setImageResource(imageDown)
                     // Выполняем действие
                     action()
+                    // Изменяем размер текста
+                    val length = binding.textView.text.length
+                    val size = 80 - (length / 11) * 10
+                    binding.textView.textSize = size.toFloat()
                     v.performClick()
                     true
                 }
