@@ -26,7 +26,6 @@
         android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintBottom_toTopOf="@+id/barrier1" />
 
     <ImageView
@@ -40,7 +39,6 @@
         android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintBottom_toTopOf="@+id/barrier1" />
 
     <ImageView
@@ -52,10 +50,9 @@
         android:src="@drawable/unpressed1"
         android:adjustViewBounds="true"
         android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/barrier4"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barrier3" />
+        app:layout_constraintBottom_toTopOf="@+id/barrier4" />
 
     <ImageView
         android:id="@+id/button2"
@@ -68,8 +65,7 @@
         android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/barrier3"
-        app:layout_constraintBottom_toTopOf="@+id/barrier4" />
+        app:layout_constraintBottom_toTopOf="@+id/barrier4"/>
 
     <ImageView
         android:id="@+id/button3"
@@ -82,8 +78,7 @@
         android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/barrier3"
-        app:layout_constraintBottom_toTopOf="@+id/barrier4" />
+        app:layout_constraintBottom_toTopOf="@+id/barrier4"/>
 
     <ImageView
         android:id="@+id/button4"
@@ -178,9 +173,10 @@
         android:src="@drawable/unpressed0"
         android:adjustViewBounds="true"
         android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/barrier4"
+        app:layout_constraintBottom_toTopOf="@+id/barrier5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/barrier4" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"/>
 
     <ImageView
         android:id="@+id/buttonPercent"
@@ -193,7 +189,6 @@
         android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintBottom_toTopOf="@+id/barrier1" />
 
     <ImageView
@@ -208,7 +203,8 @@
         app:layout_constraintStart_toEndOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barrier3"
-        app:layout_constraintBottom_toTopOf="@+id/barrier4" />
+        app:layout_constraintBottom_toTopOf="@+id/barrier4"/>
+
 
     <ImageView
         android:id="@+id/buttonMinus"
@@ -247,9 +243,10 @@
         android:src="@drawable/unpressed_dot"
         android:adjustViewBounds="true"
         android:layout_margin="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/barrier4"
+        app:layout_constraintBottom_toTopOf="@+id/barrier5"
         app:layout_constraintStart_toEndOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/barrier4" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"/>
 
     <ImageView
         android:id="@+id/buttonEquals"
@@ -260,10 +257,10 @@
         android:src="@drawable/unpressed_equall"
         android:adjustViewBounds="true"
         android:layout_margin="10dp"
-        app:layout_constraintStart_toEndOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="@id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barrier4"
         app:layout_constraintBottom_toTopOf="@+id/barrier5" />
+
 
     <ImageView
         android:id="@+id/buttonPlusMinus"
@@ -276,7 +273,6 @@
         android:layout_margin="10dp"
         app:layout_constraintStart_toEndOf="@+id/guideline1"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintBottom_toTopOf="@+id/barrier1" />
 
 
@@ -313,28 +309,35 @@
         android:id="@+id/barrier2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="button7" />
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="buttonMinus" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="button4" />
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="buttonPlus" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="button1" />
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="buttonEquals" />
+
+    <View
+        android:id="@+id/spacer"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="button0" />
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="spacer" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

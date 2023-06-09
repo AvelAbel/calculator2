@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity() {
         soundPool = SoundPool.Builder().setMaxStreams(2).build()  // Инициализируйте soundPool здесь
 
         // Здесь используйте soundPool
-        val sound1 = soundPool.load(this, R.raw.pressandpush, 1)
-        val sound2 = soundPool.load(this, R.raw.pressandpush, 1)
+        val sound1 = soundPool.load(this, R.raw.pressed, 1)
+        val sound2 = soundPool.load(this, R.raw.pressed, 1)
 
 
         setButtonTouchListener(
@@ -299,7 +299,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 MotionEvent.ACTION_UP -> {
                     // Воспроизводим звук отпускания
-                    soundPool.play(soundUp, 1F, 1F, 0, 0, 1F)
+                    //soundPool.play(soundUp, 1F, 1F, 0, 0, 1F)
                     // Возвращаем исходную картинку
                     button.setImageResource(imageUp)
                     true
@@ -308,5 +308,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }
