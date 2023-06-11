@@ -10,6 +10,7 @@ import org.mariuszgromada.math.mxparser.Expression
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.Locale
+import java.math.BigDecimal
 import androidx.databinding.DataBindingUtil
 
 class MainActivity : AppCompatActivity() {
@@ -99,10 +100,12 @@ class MainActivity : AppCompatActivity() {
                 // Проверяем, содержит ли последнее число символ "."
                 if (!lastNumber.contains(".")) {
                     currentExpression += "."
-                    binding.textView.text = currentExpression
                 }
+                updateDisplay() // Вызываем updateDisplay() здесь
             }
         )
+
+
 
 
         setButtonTouchListener(
@@ -291,42 +294,37 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateDisplay() {
-        // Проверяем, оканчивается ли текущее выражение на точку
         val endsWithDot = currentExpression.endsWith(".")
-
-        // Форматируем выражение
         val formattedExpression = formatExpression(currentExpression)
-
-        // Если выражение оканчивалось на точку, то добавляем точку обратно
         binding.textView.text = if (endsWithDot) "$formattedExpression." else formattedExpression
     }
-
 
     private fun formatExpression(expression: String): String {
         // Создаем форматтер с разделителями тысяч и десятичной точкой
         val symbols = DecimalFormatSymbols(Locale.US)
         symbols.groupingSeparator = ' '
-        val formatter = DecimalFormat("#,###.##", symbols)
+        val formatter = DecimalFormat("#,###.#####", symbols)
 
         // Разбиваем выражение на числа и операторы
-        val parts = expression.split("+", "-", "*", "/").toMutableList()
-        val operators = expression.filter { it == '+' || it == '-' || it == '*' || it == '/' }
+        val parts = expression.split(Regex("(?<=\\D)")).toMutableList()
 
         // Форматируем каждое число и собираем выражение обратно
         var formattedExpression = ""
         for (i in parts.indices) {
             val part = parts[i]
             if (part.isNotEmpty()) { // Проверяем, что строка не пустая
-                val number = part.toDouble()
-                formattedExpression += formatter.format(number)
-                if (i < operators.length) {
-                    formattedExpression += operators[i]
+                if (part.matches(Regex("\\D")) || part.last().isDigit().not()) { // Если это оператор, просто добавляем его
+                    formattedExpression += part
+                } else { // Если это число, форматируем его
+                    val number = part.toDouble()
+                    formattedExpression += formatter.format(number)
                 }
             }
         }
 
         return formattedExpression
     }
+
 
 
 
@@ -341,17 +339,9 @@ class MainActivity : AppCompatActivity() {
         button.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    // Воспроизводим звук нажатия
-                    soundPool.play(soundDown, 1F, 1F, 0, 0, 1F)
-                    // Меняем картинку на нажатую
                     button.setImageResource(imageDown)
-                    // Выполняем действие
                     action()
-                    // Форматируем текущее выражение
-                    val formattedExpression = formatExpression(currentExpression)
-                    // Обновляем текстовое представление
-                    binding.textView.text = formattedExpression
-                    // Изменяем размер текста
+                    updateDisplay()
                     val length = binding.textView.text.length
                     val size = 80 - (length / 8) * 20
                     binding.textView.textSize = size.toFloat()
@@ -359,9 +349,6 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 MotionEvent.ACTION_UP -> {
-                    // Воспроизводим звук отпускания
-                    //soundPool.play(soundUp, 1F, 1F, 0, 0, 1F)
-                    // Возвращаем исходную картинку
                     button.setImageResource(imageUp)
                     true
                 }
@@ -370,3 +357,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+
