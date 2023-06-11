@@ -7,6 +7,9 @@ import android.view.MotionEvent
 import android.widget.ImageView
 import com.example.calculator2.databinding.ActivityMainBinding
 import org.mariuszgromada.math.mxparser.Expression
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 import androidx.databinding.DataBindingUtil
 
 class MainActivity : AppCompatActivity() {
@@ -88,12 +91,19 @@ class MainActivity : AppCompatActivity() {
             R.drawable.pressed_dot,
             R.drawable.unpressed_dot,
             {
-                if (!currentExpression.contains(".")) {
+                // Разбиваем currentExpression на отдельные числа и операторы
+                val parts = currentExpression.split("+", "-", "*", "/").toTypedArray()
+                // Получаем последнее число
+                val lastNumber = parts.last()
+
+                // Проверяем, содержит ли последнее число символ "."
+                if (!lastNumber.contains(".")) {
                     currentExpression += "."
                     binding.textView.text = currentExpression
                 }
             }
         )
+
 
         setButtonTouchListener(
             binding.buttonEquals,
@@ -275,9 +285,50 @@ class MainActivity : AppCompatActivity() {
             {
                 currentExpression += "0"
                 binding.textView.text = currentExpression
+                updateDisplay()
             }
         )
     }
+
+    private fun updateDisplay() {
+        // Проверяем, оканчивается ли текущее выражение на точку
+        val endsWithDot = currentExpression.endsWith(".")
+
+        // Форматируем выражение
+        val formattedExpression = formatExpression(currentExpression)
+
+        // Если выражение оканчивалось на точку, то добавляем точку обратно
+        binding.textView.text = if (endsWithDot) "$formattedExpression." else formattedExpression
+    }
+
+
+    private fun formatExpression(expression: String): String {
+        // Создаем форматтер с разделителями тысяч и десятичной точкой
+        val symbols = DecimalFormatSymbols(Locale.US)
+        symbols.groupingSeparator = ' '
+        val formatter = DecimalFormat("#,###.##", symbols)
+
+        // Разбиваем выражение на числа и операторы
+        val parts = expression.split("+", "-", "*", "/").toMutableList()
+        val operators = expression.filter { it == '+' || it == '-' || it == '*' || it == '/' }
+
+        // Форматируем каждое число и собираем выражение обратно
+        var formattedExpression = ""
+        for (i in parts.indices) {
+            val part = parts[i]
+            if (part.isNotEmpty()) { // Проверяем, что строка не пустая
+                val number = part.toDouble()
+                formattedExpression += formatter.format(number)
+                if (i < operators.length) {
+                    formattedExpression += operators[i]
+                }
+            }
+        }
+
+        return formattedExpression
+    }
+
+
 
     private fun setButtonTouchListener(
         button: ImageView,
@@ -296,9 +347,13 @@ class MainActivity : AppCompatActivity() {
                     button.setImageResource(imageDown)
                     // Выполняем действие
                     action()
+                    // Форматируем текущее выражение
+                    val formattedExpression = formatExpression(currentExpression)
+                    // Обновляем текстовое представление
+                    binding.textView.text = formattedExpression
                     // Изменяем размер текста
                     val length = binding.textView.text.length
-                    val size = 80 - (length / 11) * 10
+                    val size = 80 - (length / 8) * 20
                     binding.textView.textSize = size.toFloat()
                     v.performClick()
                     true
